@@ -1,8 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Sparkles, Zap } from "lucide-react";
+import { Check, Crown, Sparkles, Zap, X } from "lucide-react";
 import { useState } from "react";
+
+// Modal Component
+function Modal({ isOpen, onClose, title, children }: { isOpen: boolean; onClose: () => void; title: string; children: React.ReactNode }) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative z-10 w-full max-w-md mx-4">
+        <div className="glass-strong rounded-2xl p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-white">{title}</h3>
+            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-lg transition-colors"><X className="w-5 h-5 text-zinc-400" /></button>
+          </div>
+          {children}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 const plans = [
   {
@@ -11,11 +30,11 @@ const plans = [
     price: { monthly: 0, yearly: 0 },
     icon: Sparkles,
     features: [
-      "Track up to 100 transactions/month",
+      "Up to 100 SMS transactions/month",
       "Basic expense categorization",
-      "2 bank accounts connection",
-      "Monthly spending reports",
-      "UPI transaction tracking",
+      "2 bank accounts",
+      "Monthly spending summary",
+      "UPI tracking",
       "Community support",
     ],
     cta: "Get Started Free",
@@ -23,31 +42,52 @@ const plans = [
     gradient: "from-zinc-500 to-zinc-700",
   },
   {
-    name: "Pro",
-    description: "For serious savers",
-    price: { monthly: 99, yearly: 899 },
+    name: "Student Pro",
+    description: "For serious budgeters",
+    price: { monthly: 99, yearly: 999 },
     icon: Zap,
     features: [
-      "Unlimited transactions",
-      "AI-powered smart categorization",
-      "Unlimited bank & UPI connections",
+      "Unlimited SMS transactions",
+      "AI-powered categorization",
+      "Unlimited bank accounts",
       "Real-time budget alerts",
-      "Advanced analytics & insights",
-      "Split bills with unlimited groups",
+      "Advanced analytics",
+      "Unlimited split bills",
       "Finance score & gamification",
-      "Priority email support",
+      "Priority support",
     ],
     cta: "Upgrade to Pro",
     popular: true,
     gradient: "from-dusk-500 via-sunset-500 to-gold-500",
   },
+  {
+    name: "Student Elite",
+    description: "Maximum financial power",
+    price: { monthly: 199, yearly: 1999 },
+    icon: Crown,
+    features: [
+      "Everything in Student Pro",
+      "Investment portfolio tracking",
+      "Credit score monitoring",
+      "Family account linking (up to 4)",
+      "Premium analytics & insights",
+      "Custom budget templates",
+      "Early access to new features",
+      "24/7 WhatsApp support",
+    ],
+    cta: "Go Elite",
+    popular: false,
+    gradient: "from-violet-500 via-purple-500 to-pink-500",
+  },
 ];
 
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
+  const [showPlanModal, setShowPlanModal] = useState<string | null>(null);
 
   return (
-    <section id="pricing" className="section-padding relative overflow-hidden">
+    <>
+      <section id="pricing" className="section-padding relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-dusk-700/10 blur-[150px]" />
@@ -108,7 +148,7 @@ export default function Pricing() {
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, index) => {
             const Icon = plan.icon;
             const price = billingCycle === "monthly" ? plan.price.monthly : plan.price.yearly;
@@ -164,6 +204,7 @@ export default function Pricing() {
 
                 {/* CTA Button */}
                 <motion.button
+                  onClick={() => setShowPlanModal(plan.name)}
                   className={`w-full py-3 rounded-xl font-medium mb-6 transition-all ${
                     plan.popular
                       ? "bg-gradient-to-r from-dusk-500 to-sunset-500 text-white hover:opacity-90"
@@ -205,5 +246,17 @@ export default function Pricing() {
         </motion.p>
       </div>
     </section>
+
+    <Modal isOpen={!!showPlanModal} onClose={() => setShowPlanModal(null)} title={showPlanModal ? `${showPlanModal} Plan` : ''}>
+      <p className="text-zinc-400 mb-6">You selected the {showPlanModal} plan. We&apos;re preparing something amazing for you!</p>
+      <div className="space-y-3">
+        <div className="p-4 rounded-xl bg-dusk-500/10 border border-dusk-500/30">
+          <p className="text-white font-medium mb-1">🚀 Coming Soon</p>
+          <p className="text-zinc-400 text-sm">This plan will be available when we launch. Join our waitlist to be first to know!</p>
+        </div>
+      </div>
+      <p className="text-zinc-500 text-sm mt-4 text-center">We&apos;ll notify you when {showPlanModal} is ready!</p>
+    </Modal>
+    </>
   );
 }

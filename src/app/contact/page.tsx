@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft, Mail, Phone, MapPin, Send, MessageCircle, HelpCircle } from "lucide-react";
+import { ArrowLeft, Mail, Phone, Send, MessageCircle, HelpCircle } from "lucide-react";
 
 const contactMethods = [
   {
@@ -98,10 +98,10 @@ export default function ContactPage() {
             Contact Us
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-outfit mb-6">
-            Let's <span className="gradient-text">talk</span>
+            Let&apos;s <span className="gradient-text">talk</span>
           </h1>
           <p className="text-lg text-zinc-400">
-            Have questions? We're here to help. Reach out and we'll get back to you within 24 hours.
+            Have questions? We&apos;re here to help. Reach out and we&apos;ll get back to you within 24 hours.
           </p>
         </motion.div>
 
@@ -155,7 +155,7 @@ export default function ContactPage() {
                   <Send className="w-8 h-8 text-green-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">Message Sent!</h3>
-                <p className="text-zinc-400">We'll get back to you within 24 hours.</p>
+                <p className="text-zinc-400">We&apos;ll get back to you within 24 hours.</p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">

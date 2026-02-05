@@ -4,8 +4,28 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { 
   Wallet, Twitter, Instagram, Linkedin, Github, 
-  Mail, MapPin, Phone, Heart 
+  Mail, MapPin, Phone, Heart, X 
 } from "lucide-react";
+import { useState } from "react";
+
+// Modal Component
+function Modal({ isOpen, onClose, title, children }: { isOpen: boolean; onClose: () => void; title: string; children: React.ReactNode }) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative z-10 w-full max-w-md mx-4">
+        <div className="glass-strong rounded-2xl p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-white">{title}</h3>
+            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-lg transition-colors"><X className="w-5 h-5 text-zinc-400" /></button>
+          </div>
+          {children}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 const footerLinks = {
   product: {
@@ -39,8 +59,11 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   return (
-    <footer className="relative pt-20 pb-10 overflow-hidden">
+    <>
+      <footer className="relative pt-20 pb-10 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-t from-dusk-900/50 to-transparent" />
 
@@ -65,9 +88,17 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 px-5 py-3 rounded-xl bg-dark-surface border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-dusk-500 transition-colors"
               />
               <motion.button
+                onClick={() => {
+                  if (email) {
+                    setShowSubscribeModal(true);
+                    setEmail("");
+                  }
+                }}
                 className="btn-primary px-8 py-3 whitespace-nowrap"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -147,7 +178,7 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-3 text-zinc-400 text-sm">
             <MapPin className="w-4 h-4" />
-            <span>Bangalore, India</span>
+            <span>Chennai, India</span>
           </div>
         </div>
 
@@ -162,5 +193,17 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+
+    <Modal isOpen={showSubscribeModal} onClose={() => setShowSubscribeModal(false)} title="Subscribed!">
+      <p className="text-zinc-400 mb-6">Thank you for subscribing to DuskSpendr updates!</p>
+      <div className="space-y-3">
+        <div className="p-4 rounded-xl bg-dusk-500/10 border border-dusk-500/30">
+          <p className="text-white font-medium mb-1">✅ Successfully Subscribed</p>
+          <p className="text-zinc-400 text-sm">You&apos;ll receive the latest updates on new features, student finance tips, and exclusive offers.</p>
+        </div>
+      </div>
+      <p className="text-zinc-500 text-sm mt-4 text-center">Welcome to the DuskSpendr community!</p>
+    </Modal>
+    </>
   );
 }

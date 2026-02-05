@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Play, Download, Shield, Lock, Cpu } from "lucide-react";
+import { Play, Download, Shield, Lock, Cpu, X } from "lucide-react";
+import { useState } from "react";
 
 // 3D Floating Coin Component
 function FloatingCoin({ delay = 0, x, y, size = 40 }: { delay?: number; x: string; y: string; size?: number }) {
@@ -181,23 +182,49 @@ function ParticleField() {
   );
 }
 
-// Trust Badge Component
+// Modal Component
+function Modal({ isOpen, onClose, title, children }: { isOpen: boolean; onClose: () => void; title: string; children: React.ReactNode }) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative z-10 w-full max-w-md mx-4">
+        <div className="glass-strong rounded-2xl p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-white">{title}</h3>
+            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-lg transition-colors"><X className="w-5 h-5 text-zinc-400" /></button>
+          </div>
+          {children}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 function TrustBadge({ icon: Icon, text }: { icon: React.ElementType; text: string }) {
   return (
     <motion.div
-      className="flex items-center gap-2 text-zinc-400"
-      whileHover={{ scale: 1.02, color: "#fff" }}
+      className="flex items-center gap-2 text-zinc-400 cursor-pointer"
+      whileHover={{ scale: 1.05, color: "#fff" }}
     >
-      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-dusk-500/20 to-sunset-500/20 flex items-center justify-center">
-        <Icon className="w-3 h-3 text-dusk-400" />
-      </div>
-      <span className="text-xs font-medium">{text}</span>
+      <motion.div 
+        className="w-5 h-5 rounded-full bg-gradient-to-br from-dusk-500/20 to-sunset-500/20 flex items-center justify-center group-hover:from-dusk-500/40 group-hover:to-sunset-500/40 transition-all duration-300"
+        whileHover={{ 
+          scale: 1.2, 
+          boxShadow: "0 0 15px rgba(124, 58, 237, 0.5)",
+          background: "linear-gradient(to bottom right, rgba(124, 58, 237, 0.4), rgba(249, 115, 22, 0.4))"
+        }}
+      >
+        <Icon className="w-3 h-3 text-dusk-400 group-hover:text-white transition-colors duration-300" />
+      </motion.div>
+      <span className="text-xs font-medium group-hover:text-white transition-colors duration-300">{text}</span>
     </motion.div>
   );
 }
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+  const [showDemoModal, setShowDemoModal] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -207,7 +234,8 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section
+    <>
+      <section
       ref={containerRef}
       className="relative min-h-screen flex items-center overflow-hidden pt-20"
       style={{ background: "linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #0a0a0f 100%)" }}
@@ -282,6 +310,7 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10"
             >
               <motion.button
+                onClick={() => setShowDownloadModal(true)}
                 className="btn-primary flex items-center justify-center gap-2 group"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -291,6 +320,7 @@ export default function Hero() {
               </motion.button>
               
               <motion.button
+                onClick={() => setShowDemoModal(true)}
                 className="btn-secondary flex items-center justify-center gap-2 group"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -455,6 +485,28 @@ export default function Hero() {
           />
         </motion.div>
       </motion.div>
-    </section>
+      </section>
+      <Modal isOpen={showDownloadModal} onClose={() => setShowDownloadModal(false)} title="Download DuskSpendr">
+        <p className="text-zinc-400 mb-6">Get the app and start tracking your expenses today!</p>
+        <div className="space-y-3">
+          <div className="p-4 rounded-xl bg-dusk-500/10 border border-dusk-500/30">
+            <p className="text-white font-medium mb-1">🍎 App Store</p>
+            <p className="text-zinc-400 text-sm">Coming soon! We&apos;re working on the iOS app.</p>
+          </div>
+          <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+            <p className="text-white font-medium mb-1">🤖 Google Play</p>
+            <p className="text-zinc-400 text-sm">Coming soon! We&apos;re working on the Android app.</p>
+          </div>
+        </div>
+        <p className="text-zinc-500 text-sm mt-4 text-center">Join our waitlist to be notified when we launch!</p>
+      </Modal>
+
+      <Modal isOpen={showDemoModal} onClose={() => setShowDemoModal(false)} title="Watch Demo">
+        <p className="text-zinc-400 mb-4">Coming soon! A full walkthrough of DuskSpendr features.</p>
+        <div className="aspect-video bg-dark-surface rounded-xl flex items-center justify-center">
+          <Play className="w-16 h-16 text-dusk-400" />
+        </div>
+      </Modal>
+    </>
   );
 }

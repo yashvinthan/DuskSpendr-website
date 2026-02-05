@@ -1,11 +1,34 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Apple, Smartphone, QrCode, Sparkles } from "lucide-react";
+import { Apple, Smartphone, QrCode, Sparkles, X } from "lucide-react";
+import { useState } from "react";
+
+// Modal Component
+function Modal({ isOpen, onClose, title, children }: { isOpen: boolean; onClose: () => void; title: string; children: React.ReactNode }) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative z-10 w-full max-w-md mx-4">
+        <div className="glass-strong rounded-2xl p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-white">{title}</h3>
+            <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-lg transition-colors"><X className="w-5 h-5 text-zinc-400" /></button>
+          </div>
+          {children}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function CTA() {
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+
   return (
-    <section className="section-padding relative overflow-hidden">
+    <>
+      <section className="section-padding relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-dusk-900 via-dark-bg to-sunset-900/30" />
       
@@ -92,6 +115,7 @@ export default function CTA() {
             {/* Download Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
               <motion.button
+                onClick={() => setShowDownloadModal(true)}
                 className="flex items-center gap-3 px-8 py-4 bg-white text-dark-bg rounded-xl font-semibold hover:bg-zinc-100 transition-colors group"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -104,6 +128,7 @@ export default function CTA() {
               </motion.button>
 
               <motion.button
+                onClick={() => setShowDownloadModal(true)}
                 className="flex items-center gap-3 px-8 py-4 bg-white text-dark-bg rounded-xl font-semibold hover:bg-zinc-100 transition-colors group"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -136,5 +161,21 @@ export default function CTA() {
         </div>
       </div>
     </section>
+
+    <Modal isOpen={showDownloadModal} onClose={() => setShowDownloadModal(false)} title="Download DuskSpendr">
+      <p className="text-zinc-400 mb-6">Get the app and start tracking your expenses today!</p>
+      <div className="space-y-3">
+        <div className="p-4 rounded-xl bg-dusk-500/10 border border-dusk-500/30">
+          <p className="text-white font-medium mb-1">🍎 App Store</p>
+          <p className="text-zinc-400 text-sm">Coming soon! We&apos;re working on the iOS app.</p>
+        </div>
+        <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+          <p className="text-white font-medium mb-1">🤖 Google Play</p>
+          <p className="text-zinc-400 text-sm">Coming soon! We&apos;re working on the Android app.</p>
+        </div>
+      </div>
+      <p className="text-zinc-500 text-sm mt-4 text-center">Join our waitlist to be notified when we launch!</p>
+    </Modal>
+    </>
   );
 }

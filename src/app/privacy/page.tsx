@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Shield, Lock, Eye, Server, Trash2, FileText, Mail } from "lucide-react";
+import { ArrowLeft, Shield, Lock, Eye, Server, Trash2, Mail } from "lucide-react";
 
 const privacySections = [
   {
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
             Privacy <span className="gradient-text">Policy</span>
           </h1>
           <p className="text-lg text-zinc-400">
-            Your privacy is our priority. Here's how we handle your data.
+            Your privacy is our priority. Here&apos;s how we handle your data.
           </p>
         </motion.div>
 
@@ -109,7 +109,7 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-bold text-white mb-4">Our Promise</h2>
           <p className="text-zinc-400 leading-relaxed mb-4">
             At DuskSpendr, we believe your financial data belongs to you and only you. 
-            Unlike other finance apps that upload everything to their servers, we've 
+            Unlike other finance apps that upload everything to their servers, we&apos;ve 
             designed our app to work primarily on your device.
           </p>
           <div className="flex flex-wrap gap-3">
@@ -163,7 +163,7 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-semibold text-white mb-4">About SMS Permissions</h2>
           <p className="text-zinc-400 leading-relaxed mb-4">
             We request SMS permissions to automatically detect your bank and UPI transactions. 
-            This is how the app works - but here's what you should know:
+            This is how the app works - but here&apos;s what you should know:
           </p>
           <ul className="space-y-2 text-zinc-400">
             <li className="flex items-start gap-2">
@@ -194,7 +194,7 @@ export default function PrivacyPage() {
         >
           <h2 className="text-xl font-semibold text-white mb-2">Questions about privacy?</h2>
           <p className="text-zinc-400 mb-4">
-            We're always happy to chat about how we protect your data.
+            We&apos;re always happy to chat about how we protect your data.
           </p>
           <a 
             href="mailto:privacy@duskspendr.com"

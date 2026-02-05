@@ -2,35 +2,56 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Github, Twitter, Linkedin, Mail, MapPin, Heart } from "lucide-react";
+import { ArrowLeft, Github, Twitter, Linkedin, MapPin, Heart } from "lucide-react";
 
 const team = [
   {
-    name: "Yashvardhan",
-    role: "Founder & CEO",
-    bio: "Building the future of student finance. Previously @ IIT Roorkee.",
+    name: "Shamseena Shabnam",
+    role: "Team Lead Founder & CEO",
+    bio: "Leading the vision to empower students with smart financial tools.",
+    image: "👩‍💼",
+    social: { twitter: "#", linkedin: "#", github: "#" },
+  },
+  {
+    name: "Yashvinthan",
+    role: "CTO",
+    bio: "Driving technical innovation and architecture for the platform.",
     image: "👨‍💻",
     social: { twitter: "#", linkedin: "#", github: "#" },
   },
   {
-    name: "Aditi Sharma",
-    role: "CTO",
-    bio: "AI/ML expert. Ex-Flipkart. Building the smart categorization engine.",
-    image: "👩‍💻",
+    name: "Sanjai PA",
+    role: "Backend/API Developer",
+    bio: "Building robust APIs and server infrastructure to power the app.",
+    image: "⚙️",
     social: { twitter: "#", linkedin: "#", github: "#" },
   },
   {
-    name: "Rahul Kumar",
-    role: "Head of Design",
-    bio: "Creating delightful experiences. Previously @ Unacademy.",
+    name: "Jayan H",
+    role: "Marketing",
+    bio: "Spreading the word and connecting with students across India.",
+    image: "📢",
+    social: { twitter: "#", linkedin: "#", github: "#" },
+  },
+  {
+    name: "Akash S",
+    role: "Frontend Developer",
+    bio: "Crafting beautiful and intuitive user interfaces.",
     image: "🎨",
     social: { twitter: "#", linkedin: "#", github: "#" },
   },
   {
-    name: "Priya Patel",
-    role: "Product Lead",
-    bio: "Student finance advocate. Ex-Paytm. Building for Indian students.",
-    image: "📱",
+    name: "Manikandan R",
+    role: "Data Engineer",
+    bio: "Managing data pipelines and analytics for insights.",
+    image: "📊",
+    social: { twitter: "#", linkedin: "#", github: "#" },
+  },
+  {
+    name: "Karthik S",
+    role: "UI/UX Designer Head of Design",
+    bio: "Creating delightful user experiences and design systems.",
+    image: "✨",
     social: { twitter: "#", linkedin: "#", github: "#" },
   },
 ];
@@ -177,9 +198,9 @@ export default function AboutPage() {
           className="glass rounded-xl p-8 text-center max-w-xl mx-auto"
         >
           <MapPin className="w-8 h-8 text-dusk-400 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-white mb-2">Based in Bangalore</h3>
+          <h3 className="text-xl font-semibold text-white mb-2">Based in Chennai</h3>
           <p className="text-zinc-400 text-sm">
-            Building from the Silicon Valley of India, serving students across the country.
+            Building from the cultural capital of India, serving students across the country.
           </p>
         </motion.div>
 
