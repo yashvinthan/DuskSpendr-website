@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌅 DuskSpendr
 
-## Getting Started
+**AI-powered personal finance app designed for Indian students**
 
-First, run the development server:
+DuskSpendr helps college students (18-25) track expenses, manage budgets, and build smart financial habits with the power of AI.
+
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?logo=tailwindcss)
+![Three.js](https://img.shields.io/badge/Three.js-3D-black?logo=three.js)
+
+## ✨ Features
+
+- **Smart Expense Tracking** - AI-powered categorization and insights
+- **Budget Management** - Set and track spending goals
+- **Financial Analytics** - Visual reports and spending patterns
+- **Student-Focused** - Designed for college lifestyle and budgets
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion, GSAP
+- **3D Graphics**: Three.js, React Three Fiber
+- **Icons**: Lucide React
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm, yarn, pnpm, or bun
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yashvinthan/DuskSpendr-website.git
+
+# Navigate to the project
+cd DuskSpendr-website
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── about/             # About page
+│   ├── contact/           # Contact page
+│   ├── features/          # Features page
+│   ├── pricing/           # Pricing page
+│   └── privacy/           # Privacy policy
+├── components/
+│   ├── 3d/                # Three.js 3D components
+│   ├── animations/        # Animation components
+│   ├── layout/            # Navbar, Footer, PageLoader
+│   ├── sections/          # Landing page sections
+│   └── ui/                # Reusable UI components
+├── data/                  # Static data
+├── hooks/                 # Custom React hooks
+└── lib/                   # Utilities
+```
 
-## Learn More
+## 🎨 Design
 
-To learn more about Next.js, take a look at the following resources:
+The design follows a **Dusk/Twilight theme** with:
+- Deep purples fading to warm oranges
+- Glass morphism effects
+- Smooth micro-interactions
+- 3D elements and particle effects
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📜 Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
 
-## Deploy on Vercel
+## 🚢 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Deploy easily on [Vercel](https://vercel.com):
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yashvinthan/DuskSpendr-website)
+
+## 📄 License
+
+This project is private and proprietary.
+
+---
+
+Built with 💜 for Indian students
