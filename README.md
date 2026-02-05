@@ -89,7 +89,47 @@ The design follows a **Dusk/Twilight theme** with:
 
 ## 🚢 Deployment
 
-Deploy easily on [Vercel](https://vercel.com):
+### Self-Hosted (Proxmox LXC / VPS)
+
+```bash
+# Clone and install
+git clone https://github.com/yashvinthan/DuskSpendr-website.git
+cd DuskSpendr-website
+npm install
+
+# Build for production
+npm run build
+
+# Start production server (runs on port 3000)
+npm run start
+
+# Or use PM2 for process management
+npm install -g pm2
+pm2 start npm --name "duskspendr" -- start
+pm2 save
+pm2 startup
+```
+
+**Nginx reverse proxy** (for duskspendr.in):
+```nginx
+server {
+    listen 80;
+    server_name duskspendr.in www.duskspendr.in;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+Then enable SSL with: `certbot --nginx -d duskspendr.in -d www.duskspendr.in`
+
+### Vercel (Alternative)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yashvinthan/DuskSpendr-website)
 
